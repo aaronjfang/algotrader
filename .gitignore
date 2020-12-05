@@ -3,3 +3,4 @@ nimblecache/
 htmldocs/
 api_key.txt
 *.exe
+datadir/
