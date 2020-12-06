@@ -45,17 +45,3 @@ proc loadHistoricDataFromDisk*(a:DataHandler, tickerdirectory:string): CsvParser
         open(parser, stream)
     result = parser 
 
-    
-#test this puppy out with TSLA 
-var handler:DataHandler = newDataHandler(open("api_key.txt"))
-handler.getHistoricDataFor("tsla", "15min", "year1month1")
-
-#try to load a CSV
-var csv = handler.loadHistoricDataFromDisk(os.getCurrentDir()&"/datadir/tsla/")
-
-#output CSV contents
-csv.readHeaderRow()
-while csv.readRow():
-  echo "new row: "
-  for col in items(csv.headers):
-    echo "##", col, ":", csv.rowEntry(col), "##"

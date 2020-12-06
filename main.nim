@@ -1,21 +1,14 @@
 # commenting for posterity
 # Data provided by IEX Cloud
-import httpclient
+import TimeSeries, DataHandler, os, parsecsv
+
+#test this puppy out with TSLA 
+var handler:DataHandler = newDataHandler(open("api_key.txt"))
+handler.getHistoricDataFor("tsla", "15min", "year1month1")
+
+#try to load a CSV
+var csv = handler.loadHistoricDataFromDisk(os.getCurrentDir()&"/datadir/tsla/")
+
+var testTimeSeries = newTimeSeries(csv)
 
 
-let
-    api_key:string = open("api_key.txt").readLine
-    site:string = "https://sandbox.iexapis.com/"
-    version:string = "stable"
-
-
-var 
-    client = newHttpClient()
-    content:string = site&version # in nim we can assign variable to concatenated values, as long as we don't change the value of the strings 
-
-echo(content)
-
-var 
-    ticker:string = "TSLA"
-    query:string = content&"/stock/"&ticker&"/quote?token="&api_key
-echo query
