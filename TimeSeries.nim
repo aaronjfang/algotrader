@@ -15,7 +15,6 @@ type
 
 proc string2DateTime(text: string): DateTime
 proc csvRow2TimeSeriesEntry(csvRow: CsvRow): TimeSeriesEntry
-
 proc newTimeSeries*(csvParser: CsvParser): TimeSeries =
     var 
         data:seq[TimeSeriesEntry]
@@ -30,12 +29,8 @@ proc csvRow2TimeSeriesEntry(csvRow: CsvRow): TimeSeriesEntry =
         entry: TimeSeriesEntry
         splitstr: seq[string]
     splitstr = csvRow[0].split(',')
-    entry.time = string2DateTime(splitstr[0])   #this is broken for EST
-    entry.open = parseFloat(splitstr[1])
-    entry.`high` = parseFloat(splitstr[2])
-    entry.`low` = parseFloat(splitstr[3])
-    entry.close = parseFloat(splitstr[4])
-    entry.volume = parseInt(splitstr[5])
+    entry = (string2DateTime(splitstr[0]), parseFloat(splitstr[1]), parseFloat(splitstr[2]), 
+    parseFloat(splitstr[3]), parseFloat(splitstr[4]), parseInt(splitstr[5]))
     echo entry
     result = entry
 
